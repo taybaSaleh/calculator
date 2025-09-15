@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حاسبة كميات الخرسانة</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      text-align: center;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    .calculator {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 20px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      background: #ff7a00;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .whatsapp-btn {
+      display: none;
+      margin-top: 15px;
+      text-decoration: none;
+      background-color: #25D366;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>حاسبة كميات الخرسانة</h2>
+  <p>أدخل أبعاد البلاطة لحساب كمية الخرسانة بالمتر المكعب</p>
+
+  <div class="calculator">
+    <input type="text" id="name" placeholder="اسم العميل (اختياري)">
+    <input type="tel" id="phone" placeholder="رقم الهاتف (اختياري)">
+    <input type="number" id="length" placeholder="الطول (متر)">
+    <input type="number" id="width" placeholder="العرض (متر)">
+    <input type="number" id="thickness" placeholder="السماكة (متر)">
+    <br>
+    <button onclick="calculate()">احسب الكمية</button>
+    <div class="result" id="result"></div>
+    <a id="whatsappLink" class="whatsapp-btn" target="_blank">📲 تواصل معنا عبر واتساب</a>
+  </div>
+
+  <script>
+    function calculate() {
+      let name = document.getElementById('name').value;
+      let phone = document.getElementById('phone').value;
+      let length = parseFloat(document.getElementById('length').value);
+      let width = parseFloat(document.getElementById('width').value);
+      let thickness = parseFloat(document.getElementById('thickness').value);
+
+      if (isNaN(length) || isNaN(width) || isNaN(thickness)) {
+        document.getElementById('result').innerHTML = "⚠️ الرجاء إدخال الطول والعرض والسماكة";
+        document.getElementById('whatsappLink').style.display = "none";
+        return;
+      }
+
+      let volume = length * width * thickness;
+      let message = `👷‍♂️ مرحباً، أنا ${name || "عميل"} \n📞 رقمي: ${phone || "غير مذكور"}\n🔢 أحتاج ${volume.toFixed(2)} م³ من الخرسانة.`;
+      
+      document.getElementById('result').innerHTML = 
+        "🔢 الكمية المطلوبة: " + volume.toFixed(2) + " م³";
+      
+      // إعداد رابط الواتساب
+      let waLink = `https://wa.me/967770355234?text=${encodeURIComponent(message)}`;
+      document.getElementById('whatsappLink').href = waLink;
+      document.getElementById('whatsappLink').style.display = "inline-block";
+    }
+  </script>
+
+</body>
+</html>
